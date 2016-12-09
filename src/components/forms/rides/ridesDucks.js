@@ -15,6 +15,7 @@ const LOAD_CALLS = "tax/rides/LOAD_CALLS";
 const LOAD_CALLS_FULFILLED = "tax/rides/LOAD_CALLS_FULFILLED";
 
 const LOAD_RIDES = "tax/rides/LOAD_RIDES";
+const CLEAR_RIDE = "tax/rides/CLEAR_RIDE";
 const LOAD_RIDES_FULFILLED = "tax/rides/LOAD_RIDES_FULFILLED";
 
 const LOAD_RIDE = "tax/rides/LOAD_RIDE";
@@ -42,6 +43,8 @@ export default function reducer(state = initialState, action = {}) {
         return state.set('rides', action.payload);
     case LOAD_RIDE_FULFILLED:
         return state.set('ride', action.payload);
+    case CLEAR_RIDE:
+        return state.set('ride', {});
     case DELETE_RIDE_FULFILLED:
         return state.set('rides', state.get('rides').filter(item => !_.isEqual(item.id, action.payload.id)));
     default:
@@ -52,6 +55,7 @@ export default function reducer(state = initialState, action = {}) {
 export const loadCabs = () => ({type: LOAD_CABS});
 
 export const loadRides = () => ({type: LOAD_RIDES});
+export const clearRide = () => ({type: CLEAR_RIDE});
 export const loadRide = (id) => ({type: LOAD_RIDE, payload: {id: id}});
 export const deleteRide = (ride) => ({type: DELETE_RIDE, payload: ride});
 

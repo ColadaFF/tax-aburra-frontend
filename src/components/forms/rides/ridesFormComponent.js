@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Field, reduxForm, FieldArray} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import {renderTextField, renderDatePicker, renderSelectField, mapItemsSelect} from '../../../utils/reduxForm';
 import {Row, Col} from 'react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import {loadCabs, loadCalls, saveRide, loadRide} from './ridesDucks';
+import {loadCabs, loadCalls, saveRide, loadRide, clearRide} from './ridesDucks';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash';
@@ -80,6 +80,10 @@ class RidesForm extends Component {
         if (_.has(params, 'id')) {
             loadRide(params.id);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearRide();
     }
 
     render() {
@@ -158,7 +162,8 @@ export const mapDispatchToProps = dispatch => {
         loadCalls,
         loadCabs,
         saveRide,
-        loadRide
+        loadRide,
+        clearRide
     }, dispatch);
 };
 
